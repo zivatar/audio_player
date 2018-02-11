@@ -48,6 +48,7 @@ class App extends Component {
       view = <Song  title="Polonaise in F sharp minor, Op.44"
                     author="Frederic Chopin"
                     time={this.state.currentTime}
+                    currentTime="00:00"
                     progress="0.25"/>
     } else {
       view = <Playlist/>

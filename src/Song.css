@@ -34,3 +34,51 @@ svg.circle-progress .base {
   stroke: #999;
   stroke-width: 0.5;
 }
+
+.song-current-time {
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+.song-title {
+  font-weight: bold;
+}
+
+.top-middle, .bottom-middle {
+  position: absolute;
+  left: 50%;
+}
+
+.bottom-middle {
+  bottom: 8.5%;
+  transform:translate(-50%,50%);
+}
+
+.top-middle {
+  top: 8.5%;
+  transform:translate(-50%,-50%);
+}
+
+.left-middle, .right-middle {
+  position: absolute;
+  top: 50%;
+}
+
+.left-middle {
+  left: 8.5%;
+  transform: translate(-50%, -50%);
+}
+
+.right-middle {
+  right: 8.5%;
+  transform: translate(50%, -50%);
+}
+
+.player-control {
+  cursor: pointer;
+  height: 5%;
+}
+
+.full-width {
+  width: 80%;
+}
