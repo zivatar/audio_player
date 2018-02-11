@@ -1,0 +1,32 @@
+.middle {
+  border: 2px solid #999;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform:translate(-50%,-50%);
+}
+
+#song {
+  width: 60vh;
+  height: 60vh;
+  border-radius: 60vh
+}
+
+#song-inner {
+  width: 70%;
+  height: 70%;
+  border-radius: 70%;
+}
+
+
+#svg circle {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s linear;
+  stroke: #666;
+  stroke-width: 1em;
+  width: 100%;
+  height: 100%;
+}
+#svg #bar {
+  stroke: #FF9F1E;
+}
