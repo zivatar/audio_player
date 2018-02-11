@@ -18,7 +18,8 @@ export default function Song(props) {
           <p className="song-author">{props.author}</p>
         </div>
       </div>
-      <img className="player-control top-middle" src="icons/playlist.svg"/>
+      <img className="player-control top-middle" src="icons/playlist.svg"
+      onClick={props.changeMode}/>
       <img className="player-control bottom-middle" src="icons/playpause.svg"/>
       <img className="player-control left-middle" src="icons/prev.svg"/>
       <img className="player-control right-middle" src="icons/next.svg"/>

@@ -8,7 +8,7 @@ class App extends Component {
   static get MODE() {
     return {
       SONG: "SONG",
-      MENU: "MENU"
+      PLAYLIST: "PLAYLIST"
     };
   }
 
@@ -32,6 +32,18 @@ class App extends Component {
       duration: App.getDuration(music),
     };
     this.changeMusic = this.changeMusic.bind(this);
+    this.setMode = this.setMode.bind(this);
+    this.setModeToPlaylist = this.setModeToPlaylist.bind(this);
+  }
+
+  setMode(mode) {
+    this.setState({
+      mode: mode
+    })
+  }
+
+  setModeToPlaylist() {
+    this.setMode(App.MODE.PLAYLIST);
   }
 
   changeMusic() {
@@ -49,7 +61,8 @@ class App extends Component {
                     author="Frederic Chopin"
                     time={this.state.currentTime}
                     currentTime="00:00"
-                    progress="0.25"/>
+                    progress="0.25"
+                    changeMode={this.setModeToPlaylist}/>
     } else {
       view = <Playlist/>
     }
