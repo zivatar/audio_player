@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Playlist from './Playlist';
 import Song from './Song' ;
+import Songs from './songs.json';
 
 class App extends Component {
 
@@ -12,9 +13,8 @@ class App extends Component {
     };
   }
 
-  static selectMusic() {
-    const selectedMusic = "chopin-spring";
-    return selectedMusic;
+  static selectAnyMusic() {
+    return Songs[Math.floor(Math.random() * Songs.length)];
   }
 
   static getDuration(music) {
@@ -23,7 +23,7 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    const music = App.selectMusic();
+    const music = this.selectMusic();
     this.state = {
       currentMusic: music,
       mode: App.MODE.SONG,
@@ -31,9 +31,26 @@ class App extends Component {
       currentTime: 0,
       duration: App.getDuration(music),
     };
+    this.selectMusic = this.selectMusic.bind(this);
     this.changeMusic = this.changeMusic.bind(this);
     this.setMode = this.setMode.bind(this);
     this.setModeToPlaylist = this.setModeToPlaylist.bind(this);
+  }
+
+  selectMusic() {
+    if (!this.state || !this.state.currentMusic) { // first time
+      console.log("--")
+      return App.selectAnyMusic();
+    } else { // next time do not repeat
+      console.log("originally", this.state.currentMusic.fileName);
+      let randomSong;
+      do {
+        randomSong = App.selectAnyMusic();
+        console.log(randomSong.fileName)
+      } while (randomSong.fileName !== this.state.currentMusic.fileName)
+      return randomSong;
+    }
+
   }
 
   setMode(mode) {
@@ -57,8 +74,8 @@ class App extends Component {
   render() {
     let view;
     if (this.state.mode === App.MODE.SONG) {
-      view = <Song  title="Polonaise in F sharp minor, Op.44"
-                    author="Frederic Chopin"
+      view = <Song  title={this.state.currentMusic.title}
+                    author={this.state.currentMusic.author}
                     time={this.state.currentTime}
                     currentTime="00:00"
                     progress="0.25"
@@ -68,10 +85,10 @@ class App extends Component {
     }
     return (
       <div className="App"
-        style={{backgroundImage: "url(background/" + this.state.currentMusic + ".jpg)"}}>
+        style={{backgroundImage: "url(background/" + this.state.currentMusic.fileName + ".jpg)"}}>
         {view}
         <audio id="musicPlayer" preload="true">
-          <source src={"music/" + this.state.currentMusic + ".mp3"} type="audio/mpeg" />
+          <source src={"music/" + this.state.currentMusic.fileName + ".mp3"} type="audio/mpeg" />
         </audio>
       </div>
     );
