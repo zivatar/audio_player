@@ -35,11 +35,13 @@ class App extends Component {
     this.changeMusic = this.changeMusic.bind(this);
     this.setMode = this.setMode.bind(this);
     this.setModeToPlaylist = this.setModeToPlaylist.bind(this);
+    this.setModeToSong = this.setModeToSong.bind(this);
+    this.setMusic = this.setMusic.bind(this);
   }
 
+  // randomly select a music
   selectMusic() {
     if (!this.state || !this.state.currentMusic) { // first time
-      console.log("--")
       return App.selectAnyMusic();
     } else { // next time do not repeat
       console.log("originally", this.state.currentMusic.fileName);
@@ -53,6 +55,13 @@ class App extends Component {
 
   }
 
+  setMusic(music) {
+    this.setState({
+      currentMusic: music,
+      currentTime: 0,
+    });
+  }
+
   setMode(mode) {
     this.setState({
       mode: mode
@@ -61,6 +70,10 @@ class App extends Component {
 
   setModeToPlaylist() {
     this.setMode(App.MODE.PLAYLIST);
+  }
+
+  setModeToSong() {
+    this.setMode(App.MODE.SONG);
   }
 
   changeMusic() {
@@ -79,17 +92,28 @@ class App extends Component {
                     time={this.state.currentTime}
                     currentTime="00:00"
                     progress="0.25"
-                    changeMode={this.setModeToPlaylist}/>
+                    changeMode={this.setModeToPlaylist}
+                    />
     } else {
-      view = <Playlist/>
+      view = <Playlist
+                songs={Songs}
+                changeMode={this.setModeToSong}
+                setMusic={music => this.setMusic(music)}
+                />
     }
     return (
-      <div className="App"
-        style={{backgroundImage: "url(background/" + this.state.currentMusic.fileName + ".jpg)"}}>
+      <div className="full">
+      <div id="main" className="App full">
         {view}
         <audio id="musicPlayer" preload="true">
           <source src={"music/" + this.state.currentMusic.fileName + ".mp3"} type="audio/mpeg" />
         </audio>
+      </div>
+      <div className="full App-bg"
+      style={{backgroundImage: "url(background/" +
+      this.state.currentMusic.fileName + ".jpg)"}}>
+
+      </div>
       </div>
     );
   }

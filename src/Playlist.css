@@ -1,0 +1,14 @@
+#playlist {
+  width: 60vh;
+  border: 1px solid white;
+}
+
+svg.line-progress {
+  width: 100%;
+  height: 2px;
+}
+
+svg.line-progress path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
