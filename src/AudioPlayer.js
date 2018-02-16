@@ -45,6 +45,14 @@ class AudioPlayer {
   resetTime() {
     this.domElement.currentTime = 0;
   }
+
+  loadMusic() {
+    const wasPlaying = !this.domElement.paused;
+    this.domElement.load();
+    if (wasPlaying) {
+      this.domElement.play();
+    }
+  }
 }
 
 export default AudioPlayer;

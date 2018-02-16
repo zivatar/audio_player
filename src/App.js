@@ -91,6 +91,7 @@ class App extends Component {
       currentMusic: music
     }, () => {
       this.audioPlayer.resetTime();
+      this.audioPlayer.loadMusic();
     });
   }
 
@@ -124,14 +125,23 @@ class App extends Component {
             progress={this.state.progress}
             changeMode={this.setModeToPlaylist}
             onPlayBtn={() => this.audioPlayer.playOrPause()}
-            onNextBtn={() => this.setMusic(this.getNextMusic())}
-            onPrevBtn={() => this.setMusic(this.getPreviousMusic())}
+            onNextBtn={() => {
+              this.setMusic(this.getNextMusic());
+              this.audioPlayer.play();
+            }}
+            onPrevBtn={() => {
+              this.setMusic(this.getPreviousMusic());
+              this.audioPlayer.play();
+            }}
                     />
     } else {
       view = <Playlist
                 songs={Songs}
                 changeMode={this.setModeToSong}
-                setMusic={music => this.setMusic(music)}
+                setMusic={music => {
+                  this.setMusic(music);
+                  this.audioPlayer.play();
+                }}
                 progress={this.state.progress}
                 />
     }
