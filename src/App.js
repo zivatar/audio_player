@@ -132,6 +132,7 @@ class App extends Component {
                 songs={Songs}
                 changeMode={this.setModeToSong}
                 setMusic={music => this.setMusic(music)}
+                progress={this.state.progress}
                 />
     }
 

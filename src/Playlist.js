@@ -15,12 +15,19 @@ export default function Playlist(props) {
   ))
   return (
     <div id="playlist" className="middle">
-      <svg className="line-progress" viewBox="0 0 100 100">
-        <path className="path2" fill="#01a09e"
-        strokeWidth="3" stroke="#01a09e" d="M 0 50 l 100 50"/>
+      <svg className="line-progress">
+        <line x1="0%" y1="50%" x2="100%" y2="50%"></line>
+        <line className="progress" x1="0%" y1="0%"
+        x2={""+(props.progress*100)+"%"} y2="0%"></line>
       </svg>
       <p onClick={props.changeMode} className="pointer">×</p>
+      <svg className="line-progress">
+        <line x1="0%" y1="50%" x2="100%" y2="50%"></line>
+      </svg>
       {songs}
+      <svg className="line-progress">
+        <line x1="0%" y1="50%" x2="100%" y2="50%"></line>
+      </svg>
     </div>
   );
 }
