@@ -21,11 +21,11 @@ export default function Song(props) {
       <img className="player-control top-middle" src="icons/playlist.svg"
       onClick={props.changeMode} alt="Playlist"/>
       <img className="player-control bottom-middle" src="icons/playpause.svg"
-      alt="Play/pause"/>
+      alt="Play/pause" onClick={props.onPlayBtn}/>
       <img className="player-control left-middle" src="icons/prev.svg"
-      alt="Previous song"/>
+      alt="Previous song" onClick={props.onPrevBtn}/>
       <img className="player-control right-middle" src="icons/next.svg"
-      alt="Next song"/>
+      alt="Next song" onClick={props.onNextBtn}/>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import './App.css';
 import Playlist from './Playlist';
 import Song from './Song' ;
 import Songs from './songs.json';
+import AudioPlayer from './AudioPlayer';
 
 class App extends Component {
 
@@ -17,10 +18,6 @@ class App extends Component {
     return Songs[Math.floor(Math.random() * Songs.length)];
   }
 
-  static getDuration(music) {
-    return 1;
-  }
-
   constructor(props) {
     super(props);
     const music = this.selectMusic();
@@ -28,15 +25,47 @@ class App extends Component {
       currentMusic: music,
       mode: App.MODE.SONG,
       isPlaying: false,
-      currentTime: 0,
-      duration: App.getDuration(music),
+      currentTime: "00:00",
+      progress: 0,
     };
+    this.audioPlayer = new AudioPlayer();
     this.selectMusic = this.selectMusic.bind(this);
     this.changeMusic = this.changeMusic.bind(this);
     this.setMode = this.setMode.bind(this);
     this.setModeToPlaylist = this.setModeToPlaylist.bind(this);
     this.setModeToSong = this.setModeToSong.bind(this);
     this.setMusic = this.setMusic.bind(this);
+  }
+
+  componentDidMount() {
+    this.audioPlayer.setRef(this.refs.audioPlayer);
+    this.interval = setInterval( () => {
+      this.setState({
+        currentTime: this.audioPlayer.getCurrentTime(),
+        duration: this.audioPlayer.getDuration(),
+        progress: this.audioPlayer.getProgress()
+      })
+    }, 500)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  _getCurrentMusicIndex() {
+    for (let i = 0; i < Songs.length; i++) {
+      if (Songs[i].fileName === this.state.currentMusic.fileName) {
+        return i;
+      }
+    }
+  }
+
+  getNextMusic() {
+    return Songs[(this._getCurrentMusicIndex()+1)%Songs.length];
+  }
+
+  getPreviousMusic() {
+    return Songs[(this._getCurrentMusicIndex()-1)%Songs.length];
   }
 
   // randomly select a music
@@ -58,7 +87,8 @@ class App extends Component {
   setMusic(music) {
     this.setState({
       currentMusic: music,
-      currentTime: 0,
+      currentTime: "00:00",
+      progress: 0,
     });
   }
 
@@ -80,7 +110,6 @@ class App extends Component {
     const music = App.selectMusic();
     this.setState({
       currentMusic: music,
-      duration: App.getDuration(music),
     })
   }
 
@@ -88,11 +117,13 @@ class App extends Component {
     let view;
     if (this.state.mode === App.MODE.SONG) {
       view = <Song  title={this.state.currentMusic.title}
-                    author={this.state.currentMusic.author}
-                    time={this.state.currentTime}
-                    currentTime="00:00"
-                    progress="0.25"
-                    changeMode={this.setModeToPlaylist}
+            author={this.state.currentMusic.author}
+            currentTime={this.state.currentTime}
+            progress={this.state.progress}
+            changeMode={this.setModeToPlaylist}
+            onPlayBtn={() => this.audioPlayer.playOrPause()}
+            onNextBtn={() => this.setMusic(this.getNextMusic())}
+            onPrevBtn={() => this.setMusic(this.getPreviousMusic())}
                     />
     } else {
       view = <Playlist
@@ -101,12 +132,14 @@ class App extends Component {
                 setMusic={music => this.setMusic(music)}
                 />
     }
+
     return (
       <div className="full">
       <div id="main" className="App full">
         {view}
-        <audio id="musicPlayer" preload="true">
-          <source src={"music/" + this.state.currentMusic.fileName + ".mp3"} type="audio/mpeg" />
+        <audio id="audioPlayer" ref="audioPlayer" preload="true">
+          <source src={"music/" + this.state.currentMusic.fileName + ".mp3"}
+          type="audio/mpeg" />
         </audio>
       </div>
       <div className="full App-bg"
