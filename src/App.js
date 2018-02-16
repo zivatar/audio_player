@@ -61,11 +61,13 @@ class App extends Component {
   }
 
   getNextMusic() {
-    return Songs[(this._getCurrentMusicIndex()+1)%Songs.length];
+    const l = Songs.length;
+    return Songs[(this._getCurrentMusicIndex() + 1 + l) % l];
   }
 
   getPreviousMusic() {
-    return Songs[(this._getCurrentMusicIndex()-1)%Songs.length];
+    const l = Songs.length;
+    return Songs[(this._getCurrentMusicIndex() - 1 + l) % l];
   }
 
   // randomly select a music
