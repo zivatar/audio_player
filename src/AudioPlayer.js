@@ -41,6 +41,10 @@ class AudioPlayer {
       this.domElement.pause();
     }
   }
+
+  resetTime() {
+    this.domElement.currentTime = 0;
+  }
 }
 
 export default AudioPlayer;

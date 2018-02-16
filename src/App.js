@@ -88,9 +88,9 @@ class App extends Component {
 
   setMusic(music) {
     this.setState({
-      currentMusic: music,
-      currentTime: "00:00",
-      progress: 0,
+      currentMusic: music
+    }, () => {
+      this.audioPlayer.resetTime();
     });
   }
 
