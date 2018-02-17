@@ -7,7 +7,7 @@ export default function Playlist(props) {
       props.setMusic(song);
       props.changeMode();
     }}
-    className="pointer" key={song.fileName}>
+    className="pointer song-in-list" key={song.fileName}>
       <span classNAme="song-title">{song.title}</span>
       <br/>
       <span className="song-author">{song.author}</span>
@@ -17,10 +17,13 @@ export default function Playlist(props) {
     <div id="playlist" className="middle">
       <svg className="line-progress">
         <line x1="0%" y1="50%" x2="100%" y2="50%"></line>
-        <line className="progress" x1="0%" y1="0%"
-        x2={""+(props.progress*100)+"%"} y2="0%"></line>
+        <line className="progress" x1="0%" y1="50%"
+        x2={""+(props.progress*100)+"%"} y2="50%"></line>
       </svg>
-      <p onClick={props.changeMode} className="pointer">×</p>
+      <p className="back-btn">
+      <img className="pointer" src="icons/close.svg"
+      alt="Back to song" onClick={props.changeMode}/>
+      </p>
       <svg className="line-progress">
         <line x1="0%" y1="50%" x2="100%" y2="50%"></line>
       </svg>
