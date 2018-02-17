@@ -36,12 +36,15 @@ svg.circle-progress .base {
 }
 
 .song-current-time {
-  font-size: xx-large;
-  font-weight: bold;
+  font-size: 3em;
 }
 
 .song-title {
   font-weight: bold;
+}
+
+.song-author {
+  font-size: small;
 }
 
 .top-middle, .bottom-middle {

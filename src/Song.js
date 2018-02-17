@@ -13,9 +13,14 @@ export default function Song(props) {
       </svg>
       <div id="song-inner" className="middle">
         <div className="middle full-width">
-          <p className="song-current-time">{props.currentTime}</p>
-          <p className="song-title">{props.title}</p>
-          <p className="song-author">{props.author}</p>
+          <p>
+            <span className="song-current-time">{props.currentTime}</span>
+          </p>
+          <p>
+            <span className="song-title">{props.title}</span>
+            <br/>
+            <span className="song-author">{props.author}</span>
+          </p>
         </div>
       </div>
       <img className="player-control top-middle" src="icons/playlist.svg"

@@ -8,9 +8,9 @@ export default function Playlist(props) {
       props.changeMode();
     }}
     className="pointer" key={song.fileName}>
-      <strong>{song.title}</strong>
+      <span classNAme="song-title">{song.title}</span>
       <br/>
-      {song.author}
+      <span className="song-author">{song.author}</span>
     </p>
   ))
   return (

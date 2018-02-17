@@ -125,14 +125,8 @@ class App extends Component {
             progress={this.state.progress}
             changeMode={this.setModeToPlaylist}
             onPlayBtn={() => this.audioPlayer.playOrPause()}
-            onNextBtn={() => {
-              this.setMusic(this.getNextMusic());
-              this.audioPlayer.play();
-            }}
-            onPrevBtn={() => {
-              this.setMusic(this.getPreviousMusic());
-              this.audioPlayer.play();
-            }}
+            onNextBtn={() => this.setMusic(this.getNextMusic()) }
+            onPrevBtn={() => this.setMusic(this.getPreviousMusic()) }
                     />
     } else {
       view = <Playlist
